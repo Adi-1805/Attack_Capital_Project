@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // Hashed by Better Auth
+  sessions  Session[]
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id          String   @id @default(cuid())
+  userId      String
+  transcript  String   @default("")
+  summary     String   @default("")
+  status      String   @default("completed")
+  metadata    Json
+  title       String?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
