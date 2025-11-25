@@ -28,9 +28,9 @@ io.on("connection", (socket) => {
     const session = await prisma.session.create({
       data: {
         user: {
-            connect: { id: data.userId } // Assuming you have a user with the given id
+            connect: { id: data.userId } 
         },
-        transcript: "", // explicit, though it has a default
+        transcript: "", 
         summary: "",
         status: "recording",
         metadata: {
@@ -38,8 +38,8 @@ io.on("connection", (socket) => {
           duration: 0,
           audioSource: data.source,
         },
-        title: null, // optional, can be null
-      } satisfies Prisma.SessionCreateInput, // 👈 key line
+        title: null, 
+      } satisfies Prisma.SessionCreateInput, 
     });
 
     socket.join(session.id);
@@ -183,7 +183,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// ⬇️ These were missing in your snippet; needed to close the file cleanly
 const PORT = 4000;
 httpServer.listen(PORT, () => {
   console.log(`Socket.io server running on http://localhost:${PORT}`);
